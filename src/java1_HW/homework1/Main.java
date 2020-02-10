@@ -11,7 +11,7 @@ public class Main {
         isPositiveOrNegative(-10);
         task6(-10);
         printHelloName("Andrey");
-        leapYear(2007);
+        leapYear(250);
     }
 }
 
@@ -66,10 +66,10 @@ class TaskMethods {
     }
 
     public static void leapYear(int c) {
-        if (c % 4 == 0 && c % 400 == 0) {
-            System.out.println(c + "Этот год- високосный");
+        if (c % 4 == 0 && c % 100 !=0 || c % 400 == 0  )  {
+            System.out.println(c + " Этот год- високосный");
         } else {
-            System.out.println(c + "Этот год- не високосный");
+            System.out.println(c + " Этот год- не високосный");
         }
 
     }
