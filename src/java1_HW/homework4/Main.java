@@ -85,14 +85,26 @@ public class Main {
 
     public static void aiTurn() {
         int x, y;
+
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (isCellValid(i, j)) {
+                    map[i][j] =  DOT_O;
+                    if (checkWin( DOT_O)) {
+                        map[i][j] = DOT_O;
+                        return;
+                    }
+                    map[i][j] = DOT_EMPTY;
+                }
+            }
+        }
+
+
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 if (isCellValid(i, j)) {
                     map[i][j] = DOT_X;
                     if (checkWin(DOT_X)) {
-                        map[i][j] = DOT_O;
-                        return;
-                    } else if (checkWin(DOT_O)) {
                         map[i][j] = DOT_O;
                         return;
                     }
@@ -128,22 +140,43 @@ public class Main {
     }
 
     public static boolean checkWin(char symb) {
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                if (map[i][j] ==  symb && map[i][SIZE-2] == symb && map[i][SIZE-1] == symb) {
-                    return true;
-                } else if (map[i][j] == symb && map[SIZE-2][j] == symb && map[SIZE-1][j] == symb) {
-                    return true;
-                } else if (map[0][0] == symb && map[SIZE - 2][SIZE - 2] == symb && map[SIZE - 1][SIZE - 1] == symb) {
-                    return true;
-                } else if (map[SIZE - 1][0] == symb && map[SIZE - 2][SIZE - 2] == symb && map[0][SIZE - 1] == symb) {
-                    return true;
-                }
-            }break;
-        }
+       if(checkWinHorizontal(symb)){return true;};
+//       if(checkWinVertical(symb)){return true;};
+       if(checkWinDioganal(symb)){return true;};
         return false;
+    }
+
+    public static boolean checkWinHorizontal(char symb) {
+       int count = 1;
+        int j = 0;
+        for (int i = 0; i < SIZE; i++) {
+            if (map[i][j] == symb) {
+                count++;
+            }
+            if (count == DOT_TO_WIN) {
+                return true;
+            }
+        } return false;
         }
 
+
+//   public static boolean checkWinVertical(char symb) {
+//        int i = 0;
+//            for (int j = 0; j < SIZE; j++) {
+//                if (map[i][j] == symb && map[SIZE-2][j] == symb && map[SIZE-1][j] == symb) {
+//                    return true;
+//                }i++;
+//            }return false;
+//   }
+
+    public static boolean checkWinDioganal(char symb) {
+
+                if (map[0][0] == symb && map[SIZE - 2][SIZE - 2] == symb && map[SIZE - 1][SIZE - 1] == symb) {
+                    return true;
+                } else if (map[2][0] == symb && map[SIZE - 2][SIZE - 2] == symb && map[0][2] == symb) {
+                    return true;
+                }return false;
+    }
 
 
 //        if(map[0][0] == symb && map[0][1] == symb && map[0][2] == symb) return true;
