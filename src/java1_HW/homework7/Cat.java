@@ -3,20 +3,46 @@ package java1_HW.homework7;
 public class Cat {
 
     private String name;
-    private int amountoffoodconsumed ;
-    private int satiety;
+    private boolean satiety;
 
 
 
-    public Cat(String name,int amountoffoodconsumed ,int satiety){
+    public Cat(String name){
         this.name = name;
-        this.amountoffoodconsumed = amountoffoodconsumed;
-        this.satiety = satiety;
+        satiety = false;
     }
 
     public void eat(Plate plate) {
-        System.out.println(" Cat " + name + " eat ");
-        plate.decreasFood(amountoffoodconsumed);
+        if (plate.decreasFood(10)) {
+            System.out.println(" Cat " + name + " eat ");
+            satiety = true;
+        } else {
+            System.out.println(" Cat " + name + " eat ");
+        }
     }
 
+        public String getName() {
+            return name;
+        }
+
+
+        public boolean isSatiety() {
+            return satiety;
+        }
+
+
+
+        @Override
+        public String toString() {
+            return "Cat{" +
+                    "name='" + name + '\'' +
+                    ", satiety=" + satiety +
+                    '}';
+        }
+
+
 }
+
+
+
+

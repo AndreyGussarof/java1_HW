@@ -10,20 +10,23 @@ public class Plate {
     }
 
     public void info() {
-            System.out.println("Food : " + food);
+        System.out.println("Food : " + food);
     }
-    public  void decreasFood(int amountoffoodconsumed){
 
+    public boolean decreasFood(int amountoffoodconsumed) {
+
+        if (food >= amountoffoodconsumed) {
             food -= amountoffoodconsumed;
-
-
-    if (food < amountoffoodconsumed) {
-        System.out.println("В тарелке недостаточно еды");
-//        break;
-
-} else  {
-        System.out.println("В тарелке досаточно еды");
-        System.out.println("satiety = " + true);
+            return true;
+        } else {
+            return false;
+        }
     }
+
+    public boolean addFood(int amountoffoodconsumed){
+        if( amountoffoodconsumed>=0){
+            food+=amountoffoodconsumed;
+            return true;
+        } else return false;
     }
 }
