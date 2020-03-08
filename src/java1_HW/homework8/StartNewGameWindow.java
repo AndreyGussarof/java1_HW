@@ -14,6 +14,8 @@ public class StartNewGameWindow extends JFrame {
     private static final int MIN_WIN_LINE = 3;
     private static final int MAX_WIN_LINE = 10;
 
+    private static final String STR_FIELD_SIZE = " Field size : ";
+    private static final String STR_WIN_LENGTH = " Winning line : ";
 
     private JRadioButton jrbHumVsAi;
     private JRadioButton jrbHumVsHum;
@@ -49,10 +51,24 @@ public class StartNewGameWindow extends JFrame {
         slWinLength.setPaintLabels(true);
 
         add(new JLabel("Choose field size"));
+        JLabel jlFieldSize = new JLabel(STR_FIELD_SIZE + MIN_FIELD_SIZE);
+        add(jlFieldSize);
         add(slFieldSize);
-        add(new JLabel("Choose WinLength"));
+
+        add(new JLabel("Choose Win Length"));
+        JLabel jlWinLength = new JLabel(STR_WIN_LENGTH + MIN_WIN_LINE);
+        add(jlWinLength);
         add(slWinLength);
 
+
+        slFieldSize.addChangeListener(e -> {
+            int currentFieldSize = slFieldSize.getValue();
+            jlFieldSize.setText(STR_FIELD_SIZE + currentFieldSize);
+        });
+
+        slWinLength.addChangeListener(e -> {
+            jlWinLength.setText(STR_WIN_LENGTH + slWinLength.getValue());
+        });
 
         setVisible(false);
     }
