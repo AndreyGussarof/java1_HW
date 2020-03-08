@@ -1,4 +1,4 @@
-package java1_HW.homework8;
+package java1_HW.homework8_1;
 
 import javax.swing.*;
 import java.awt.*;
