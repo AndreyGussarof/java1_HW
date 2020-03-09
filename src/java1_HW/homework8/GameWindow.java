@@ -1,4 +1,4 @@
-package java1_HW.homework8_1;
+package java1_HW.homework8;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,7 +25,7 @@ public class GameWindow extends JFrame {
         panel.add(btnExit);
         add(panel, BorderLayout.SOUTH);
 
-        startNewGameWindow = new StartNewGameWindow();
+        startNewGameWindow = new StartNewGameWindow(this);
         field = new BattleMap();
         add(field, BorderLayout.CENTER);
 
@@ -40,4 +40,11 @@ public class GameWindow extends JFrame {
 
         setVisible(true);
     }
+
+    public void startNewGame(int mode , int fieldSizeX , int fieldSizeY , int winLength){
+//        System.out.printf( " mode %d fieldSizeX %d fieldSizeY %d winLength %d \n"
+//        , mode , fieldSizeX , fieldSizeY , winLength);
+        field.startNewGame(mode , fieldSizeX , fieldSizeY , winLength);
+    }
+
 }

@@ -1,9 +1,11 @@
-package java1_HW.homework8_1;
+package java1_HW.homework8;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class StartNewGameWindow extends JFrame {
+    private final GameWindow gameWindow;
+
     private static final int WINDOW_POS_X = 500;
     private static final int WINDOW_POS_Y = 200;
     private static final int WINDOW_HIGHT = 455;
@@ -24,7 +26,8 @@ public class StartNewGameWindow extends JFrame {
     private JSlider slWinLength;
 
 
-    public StartNewGameWindow() {
+    public StartNewGameWindow(GameWindow gameWindow) {
+        this.gameWindow = gameWindow;
         setTitle("NewGame setting");
         setBounds(WINDOW_POS_X, WINDOW_POS_Y, WINDOW_HIGHT, WINDOW_WIDTH);
         setLayout(new GridLayout(10, 1));
@@ -40,8 +43,8 @@ public class StartNewGameWindow extends JFrame {
         add(jrbHumVsAi);
         add(jrbHumVsHum);
 
-        slFieldSize = new JSlider(MIN_FIELD_SIZE, MAX_FIELD_SIZE, MAX_FIELD_SIZE);
-        slWinLength = new JSlider(MIN_WIN_LINE, MAX_WIN_LINE, MIN_WIN_LINE);
+        slFieldSize = new JSlider(MIN_FIELD_SIZE, MAX_FIELD_SIZE, MIN_FIELD_SIZE);
+        slWinLength = new JSlider(MIN_WIN_LINE, MIN_WIN_LINE, MIN_WIN_LINE);
         slFieldSize.setMajorTickSpacing(1);
         slFieldSize.setPaintTicks(true);
         slFieldSize.setPaintLabels(true);
@@ -64,10 +67,33 @@ public class StartNewGameWindow extends JFrame {
         slFieldSize.addChangeListener(e -> {
             int currentFieldSize = slFieldSize.getValue();
             jlFieldSize.setText(STR_FIELD_SIZE + currentFieldSize);
+            slWinLength.setMaximum(currentFieldSize);
         });
 
         slWinLength.addChangeListener(e -> {
             jlWinLength.setText(STR_WIN_LENGTH + slWinLength.getValue());
+        });
+
+        JButton btnStartGame = new JButton("Start a Game");
+        add(btnStartGame);
+
+        btnStartGame.addActionListener(e -> {
+            int gameMode;
+            if(jrbHumVsAi.isSelected()){
+                gameMode = BattleMap.H_VS_A;
+            }else{
+                gameMode = BattleMap.H_VS_H;
+            }
+            int fieldSize = slFieldSize.getValue();
+            int winLength = slWinLength.getValue();
+
+            Logic.SIZE = fieldSize;
+            Logic.DOT_TO_WIN = winLength;
+            Logic.initMap();
+            Logic.gameFinish = false;
+
+            gameWindow.startNewGame(gameMode , fieldSize ,fieldSize , winLength);
+            setVisible(false);
         });
 
         setVisible(false);

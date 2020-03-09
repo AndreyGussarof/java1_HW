@@ -1,11 +1,11 @@
-package java1_HW.homework4;
+package java1_HW.homework8;
 
 import java.util.Random;
 import java.util.Scanner;
 
-public class Main {
-    static final int SIZE = 3;
-    static final int DOT_TO_WIN = 3;
+public class Logic {
+    static  int SIZE = 3;
+    static  int DOT_TO_WIN = 3;
 
     static final char DOT_X = 'X';
     static final char DOT_O = 'O';
@@ -16,36 +16,47 @@ public class Main {
     static Random random = new Random();
     static Scanner sc = new Scanner(System.in);
 
-    public static void main(String[] args) {
-        initMap();
-        printMap();
-        while (true) {
-            humanTurn();
+    public static boolean gameFinish = false;
+    public static String winnerName = "..." ;
+
+    public static void go() {
+
+//        initMap();
+//        printMap();
+//        while (true) {
+
+        gameFinish = true;
+
+//            humanTurn();
             printMap();
 
             if (checkWin(DOT_X)) {
                 System.out.println("Победил человек");
-                break;
+                winnerName = "Победил человек" ;
+                return;
             }
 
             if (isFull()) {
                 System.out.println("Ничья");
-                break;
+                return;
             }
             aiTurn();
             printMap();
 
             if (checkWin(DOT_O)) {
                 System.out.println("Победил Искуственный Интеллект");
-                break;
+                winnerName = "Победил Искуственный Интеллект" ;
+                return;
             }
 
 
             if (isFull()) {
                 System.out.println("Ничья");
-                break;
+                winnerName = "Ничья";
+                return;
             }
-        }
+        gameFinish = false;
+//        }
     }
 
     public static void initMap() {
@@ -72,15 +83,22 @@ public class Main {
         }
     }
 
-    public static void humanTurn() {
-        int x, y;
-        do {
-            System.out.println("Введите координаты в формате Y X");
-            y = sc.nextInt() - 1;
-            x = sc.nextInt() - 1;
+//    public static void humanTurn() {
+//        int x, y;
+//        do {
+//            System.out.println("Введите координаты в формате Y X");
+//            y = sc.nextInt() - 1;
+//            x = sc.nextInt() - 1;
+//        }
+//        while (!isCellValid(y, x));
+//        map[y][x] = DOT_X;
+//    }
+
+    public static void setHumanXY (int x , int y){
+        if(isCellValid(y,x)){
+         map[y][x]=DOT_X;
+         go();
         }
-        while (!isCellValid(y, x));
-        map[y][x] = DOT_X;
     }
 
     public static void aiTurn() {
