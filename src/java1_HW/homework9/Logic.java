@@ -1,11 +1,11 @@
-package java1_HW.homework8;
+package java1_HW.homework9;
 
 import java.util.Random;
 import java.util.Scanner;
 
 public class Logic {
-    static  int SIZE = 3;
-    static  int DOT_TO_WIN = 3;
+    static  int SIZE ;
+    static  int DOT_TO_WIN ;
 
     static final char DOT_X = 'X';
     static final char DOT_O = 'O';
